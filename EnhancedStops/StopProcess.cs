@@ -27,6 +27,7 @@ namespace EnhancedStops
 
         private static readonly NativeMenu _arrestMenu = new NativeMenu(Globals.ModName, "Arrest Interactions");
         private static readonly NativeItem _itemCheckIdArrested = new NativeItem("Request status check", "Requests dispatch to check for the suspect status.");
+        private static readonly NativeItem _itemGracefulRemoveFromCar = new NativeItem("Remove from Vehicle", "Gracefully removes the suspect from it's current vehicle.");
 
         private static readonly NativeMenu _generalActionsMenu = new NativeMenu(Globals.ModName, "General Actions");
         private static readonly NativeItem _itemSlowDownTraffic = new NativeItem("Slow Down Traffic", "Slows down traffic in the current area.");
@@ -70,12 +71,14 @@ namespace EnhancedStops
             _pool.Add(_menu);
 
             _arrestMenu.Add(_itemCheckIdArrested);
+            _arrestMenu.Add(_itemGracefulRemoveFromCar);
             _pool.Add(_arrestMenu);
 
             // They does the same thing
             // The second is for avoiding the bug
             _itemCheckId.Activated += _itemCheckId_Activated;
             _itemCheckIdArrested.Activated += _itemCheckId_Activated;
+            _itemGracefulRemoveFromCar.Activated += _itemGracefulRemoveFromCar_Activated;
 
             while (!_isBeingDisposed)
             {
@@ -104,10 +107,19 @@ namespace EnhancedStops
 
                     if (Functions.IsPedArrested(truePed))
                     {
+                        _itemGracefulRemoveFromCar.Enabled = truePed.IsInAnyVehicle(false);
                         _arrestMenu.Visible = !_arrestMenu.Visible;
                     }
                 }
 
+            }
+        }
+
+        private static void _itemGracefulRemoveFromCar_Activated(object sender, EventArgs e)
+        {
+            if (_currentPed && _currentPed.IsInAnyVehicle(false))
+            {
+                _currentPed.Tasks.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
             }
         }
 

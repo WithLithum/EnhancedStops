@@ -60,8 +60,8 @@ There are things to notice:
   
   * Use Allman bracing.
 
+## License
 
+This project is licensed under GNU GPL 3.0. You may choose any later version of GNU GPL desired to apply.
 
-
-
-
+There's a copy of the full text of the GNU GPL version 3 in the [LICENSE file](LICENSE).

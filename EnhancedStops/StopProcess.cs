@@ -84,17 +84,17 @@ namespace EnhancedStops
             {
                 GameFiber.Yield();
 
-                // Get closet ped
-                // Not player
-                var closePed = World.GetClosestEntity(World.GetEntities(Game.LocalPlayer.Character.Position, 8f, GetEntitiesFlags.ConsiderHumanPeds | GetEntitiesFlags.ExcludePlayerPed), Game.LocalPlayer.Character.Position);
-
-                // We check if the ped exists & is a ped
-                if (!closePed || !closePed.Model.IsPed) continue;
-                var truePed = (Ped)closePed;
-
                 // If it is key down and no menu displayed
                 if (Game.IsKeyDown(Keys.G) && !_pool.AreAnyVisible)
                 {
+                    // Get closet ped
+                    // Not player
+                    var closePed = World.GetClosestEntity(World.GetEntities(Game.LocalPlayer.Character.Position, 4f, GetEntitiesFlags.ConsiderHumanPeds | GetEntitiesFlags.ExcludePlayerPed), Game.LocalPlayer.Character.Position);
+
+                    // We check if the ped exists & is a ped
+                    if (!closePed || !closePed.Model.IsPed) continue;
+                    var truePed = (Ped)closePed;
+
                     // Assign currentped so that menus recognize the ped and
                     // performs valid actions
                     _currentPed = truePed;

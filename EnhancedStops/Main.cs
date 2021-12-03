@@ -1,10 +1,5 @@
 ﻿using EnhancedStops.Util;
 using LSPD_First_Response.Mod.API;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 [assembly: Rage.Attributes.Plugin("Enhanced Stops", Author = "WithLithum", Description = "You know what I hate? That's BEPIS. The taste, the smell, the texture.")]
 

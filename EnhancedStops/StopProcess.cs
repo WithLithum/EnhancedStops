@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -31,6 +32,10 @@ namespace EnhancedStops
 
         private static readonly NativeMenu _generalActionsMenu = new NativeMenu(Globals.ModName, "General Actions");
         private static readonly NativeItem _itemSlowDownTraffic = new NativeItem("Slow Down Traffic", "Slows down traffic in the current area.");
+
+        private static readonly NativeMenu _trafficStopMenu = new NativeMenu(Globals.ModName, "Traffic Stop");
+        private static readonly NativeItem _itemCheckVehicle = new NativeItem("Request Vehicle Check", "Request dispatch to check the vehicle status.");
+        private static readonly NativeItem _itemCheckDriver = new NativeItem("Request Driver Status Check", "Requests dispatch to check the driver's status.");
 
         internal static void Initialize()
         {
@@ -74,11 +79,18 @@ namespace EnhancedStops
             _arrestMenu.Add(_itemGracefulRemoveFromCar);
             _pool.Add(_arrestMenu);
 
+            _trafficStopMenu.Add(_itemCheckVehicle);
+            _trafficStopMenu.Add(_itemCheckDriver);
+            _pool.Add(_trafficStopMenu);
+
             // They does the same thing
             // The second is for avoiding the bug
-            _itemCheckId.Activated += _itemCheckId_Activated;
-            _itemCheckIdArrested.Activated += _itemCheckId_Activated;
-            _itemGracefulRemoveFromCar.Activated += _itemGracefulRemoveFromCar_Activated;
+            _itemCheckId.Activated += ItemCheckId_Activated;
+            _itemCheckIdArrested.Activated += ItemCheckId_Activated;
+            _itemGracefulRemoveFromCar.Activated += ItemGracefulRemoveFromCar_Activated;
+
+            _itemCheckDriver.Activated += ItemCheckDriver_Activated;
+            _itemCheckVehicle.Activated += ItemCheckVehicle_Activated;
 
             while (!_isBeingDisposed)
             {
@@ -87,7 +99,17 @@ namespace EnhancedStops
                 // If it is key down and no menu displayed
                 if (Game.IsKeyDown(Keys.G) && !_pool.AreAnyVisible)
                 {
-                    // Get closet ped
+                    if (Functions.IsPlayerPerformingPullover())
+                    {
+                        var pull = Functions.GetCurrentPullover();
+                        if (pull != null)
+                        {
+                            _trafficStopMenu.Visible = !_trafficStopMenu.Visible;
+                            continue;
+                        }
+                    }
+
+                    // Get closet human ped
                     // Not player
                     var closePed = World.GetClosestEntity(World.GetEntities(Game.LocalPlayer.Character.Position, 4f, GetEntitiesFlags.ConsiderHumanPeds | GetEntitiesFlags.ExcludePlayerPed), Game.LocalPlayer.Character.Position);
 
@@ -115,7 +137,17 @@ namespace EnhancedStops
             }
         }
 
-        private static void _itemGracefulRemoveFromCar_Activated(object sender, EventArgs e)
+        private static void ItemCheckVehicle_Activated(object sender, EventArgs e)
+        {
+            Radio.DisplayVehicleInfo(_currentPed.CurrentVehicle);
+        }
+
+        private static void ItemCheckDriver_Activated(object sender, EventArgs e)
+        {
+            ItemCheckId_Activated(sender, e);
+        }
+
+        private static void ItemGracefulRemoveFromCar_Activated(object sender, EventArgs e)
         {
             if (_currentPed && _currentPed.IsInAnyVehicle(false))
             {
@@ -123,7 +155,7 @@ namespace EnhancedStops
             }
         }
 
-        private static void _itemCheckId_Activated(object sender, EventArgs e)
+        private static void ItemCheckId_Activated(object sender, EventArgs e)
         {
             if (_currentPed)
             {

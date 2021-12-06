@@ -109,7 +109,7 @@ namespace EnhancedStops
                 GameFiber.Yield();
 
                 // If it is key down and no menu displayed
-                if (Game.IsKeyDown(Keys.G) && !_pool.AreAnyVisible)
+                if (Game.IsKeyDown(Config.MenuKey) && !_pool.AreAnyVisible)
                 {
                     if (Functions.IsPlayerPerformingPullover())
                     {

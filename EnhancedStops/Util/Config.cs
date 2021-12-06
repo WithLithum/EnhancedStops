@@ -1,4 +1,6 @@
-﻿using Rage;
+﻿using EnhancedStops.Response.Schemas;
+using Newtonsoft.Json;
+using Rage;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,11 +24,16 @@ namespace EnhancedStops.Util
             SuperSprintKey = iniFile.ReadEnum("Generic", "SuperSprintKey", Keys.Enter);
             SuperSprintCooldown = iniFile.ReadInt32("SuperSprint", "SuperSprintCooldown", 10);
             SuperSpringTimeout = iniFile.ReadInt32("SuperSprint", "SuperSprintTimeout", 3);
+
+            TransportUnit = JsonConvert.DeserializeObject<Unit>(
+                    File.ReadAllText("Data\\WithLithum\\EnhancedStops\\units\\transport.json")
+                );
         }
 
         internal static Keys MenuKey { get; private set; }
         internal static Keys SuperSprintKey { get; private set; }
         internal static int SuperSprintCooldown { get; private set; }
         internal static int SuperSpringTimeout { get; private set; }
+        internal static Unit TransportUnit { get; }
     }
 }

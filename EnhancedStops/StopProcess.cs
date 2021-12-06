@@ -24,6 +24,7 @@ namespace EnhancedStops
         private static readonly NativeMenu _arrestMenu = new NativeMenu(Globals.ModName, "Arrest Interactions");
         private static readonly NativeItem _itemCheckIdArrested = new NativeItem("Request status check", "Requests dispatch to check for the suspect status.");
         private static readonly NativeItem _itemGracefulRemoveFromCar = new NativeItem("Remove from Vehicle", "Gracefully removes the suspect from it's current vehicle.");
+        private static readonly NativeItem _itemCallTransport = new NativeItem("Request transport unit", "If subject set down on the ground, requests a transport unit.");
 
         private static readonly NativeMenu _generalActionsMenu = new NativeMenu(Globals.ModName, "General Actions");
         private static readonly NativeItem _itemSlowDownTraffic = new NativeItem("Slow Down Traffic", "Slows down traffic in the current area.");
@@ -100,6 +101,7 @@ namespace EnhancedStops
             _itemCheckId.Activated += ItemCheckId_Activated;
             _itemCheckIdArrested.Activated += ItemCheckId_Activated;
             _itemGracefulRemoveFromCar.Activated += ItemGracefulRemoveFromCar_Activated;
+            _itemCallTransport.Activated += _itemCallTransport_Activated;
 
             _itemCheckDriver.Activated += ItemCheckDriver_Activated;
             _itemCheckVehicle.Activated += ItemCheckVehicle_Activated;
@@ -147,6 +149,11 @@ namespace EnhancedStops
                 }
 
             }
+        }
+
+        private static void _itemCallTransport_Activated(object sender, EventArgs e)
+        {
+            Functions.RequestSuspectTransport(_currentPed);
         }
 
         private static void ItemCheckVehicle_Activated(object sender, EventArgs e)

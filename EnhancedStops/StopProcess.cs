@@ -4,6 +4,8 @@ using LemonUI.Menus;
 using LSPD_First_Response.Mod.API;
 using Rage;
 using System;
+using System.Drawing;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace EnhancedStops
@@ -29,6 +31,23 @@ namespace EnhancedStops
         private static readonly NativeMenu _trafficStopMenu = new NativeMenu(Globals.ModName, "Traffic Stop");
         private static readonly NativeItem _itemCheckVehicle = new NativeItem("Request Vehicle Check", "Request dispatch to check the vehicle status.");
         private static readonly NativeItem _itemCheckDriver = new NativeItem("Request Driver Status Check", "Requests dispatch to check the driver's status.");
+
+        public static void Main()
+        {
+            Game.DisplayHelp("SEE BIG MESSAGE BELOW");
+            Game.DisplaySubtitle("SEE BIG MESSAGE ABOVE");
+            Game.RawFrameRender += Game_RawFrameRender;
+
+            GameFiber.Hibernate();
+        }
+
+        private static void Game_RawFrameRender(object sender, GraphicsEventArgs e)
+        {
+            e.Graphics.DrawRectangle(new RectangleF(3f, 3f, 500f, 500f), Color.Black);
+            e.Graphics.DrawText("Greetings. So for whether reason, you loaded EnhancedStops with RPH.", "Arial", 9f, new PointF(9f, 9f), Color.Red);
+            e.Graphics.DrawText("This isn't a normal behavior and in fact you should put it inside plugins/LSPDFR folder.", "Arial", 9f, new PointF(9f, 25f), Color.Red);
+            e.Graphics.DrawText("This message won't go away until you unload me.", "Arial", 9f, new PointF(9f, 40f), Color.Red);
+        }
 
         internal static void Initialize()
         {

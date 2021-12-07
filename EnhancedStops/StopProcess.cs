@@ -113,14 +113,13 @@ namespace EnhancedStops
                 // If it is key down and no menu displayed
                 if (Game.IsKeyDown(Config.MenuKey) && !_pool.AreAnyVisible)
                 {
-                    if (Functions.IsPlayerPerformingPullover())
+                    var pull = Functions.GetCurrentPullover();
+                    if (pull != null)
                     {
-                        var pull = Functions.GetCurrentPullover();
-                        if (pull != null)
-                        {
-                            _trafficStopMenu.Visible = !_trafficStopMenu.Visible;
-                            continue;
-                        }
+                        // Assign currentped as pullover suspect
+                        _currentPed = Functions.GetPulloverSuspect(pull);
+                        _trafficStopMenu.Visible = !_trafficStopMenu.Visible;
+                        continue;
                     }
 
                     // Get closet human ped

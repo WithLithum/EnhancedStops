@@ -90,6 +90,7 @@ namespace EnhancedStops
 
             _arrestMenu.Add(_itemCheckIdArrested);
             _arrestMenu.Add(_itemGracefulRemoveFromCar);
+            _arrestMenu.Add(_itemCallTransport);
             _pool.Add(_arrestMenu);
 
             _trafficStopMenu.Add(_itemCheckVehicle);

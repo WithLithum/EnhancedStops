@@ -34,7 +34,7 @@ namespace EnhancedStops
                 if (!sprinting && Game.IsKeyDown(Config.SuperSprintKey) && !cooldown)
                 {
                     cooldownTimer = Config.SuperSprintCooldown;
-                    NativeFunction.Natives.x6DB47AA77FD94E09(Game.LocalPlayer, 2.2f);
+                    NativeFunction.Natives.x6DB47AA77FD94E09(Game.LocalPlayer, 8.2f);
                     sprinting = true;
                 }
             }

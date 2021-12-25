@@ -3,7 +3,7 @@ using LSPD_First_Response.Mod.API;
 using Rage;
 using System.IO;
 
-[assembly: Rage.Attributes.Plugin("Enhanced Stops", Author = "WithLithum", Description = "You know what I hate? That's BEPIS. The taste, the smell, the texture.")]
+[assembly: Rage.Attributes.Plugin("BEPIS", Author = "BEPIS", Description = "You know what I hate? That's BEPIS. The taste, the smell, the texture.")]
 
 namespace EnhancedStops
 {
@@ -28,9 +28,8 @@ namespace EnhancedStops
             if (File.Exists(@"plugins\LSPDFR\UltimateBackup.dll"))
             {
                 Game.DisplayNotification("~r~~h~EnhancedStops Warning~n~~s~~r~UltimateBackup~s~ was detected. The latter's feature is not supported by EnhancedStops.");
-                Game.DisplayNotification("You may experience ~r~glitches~s~ or other errors when playing.");
-                Game.DisplayNotification("We recommend you to remove ~b~UltimateBackup~s~ for better experience.");
-                Game.LogTrivial("EH: Stop the ped Detected. The plugin is not loading!");
+                Game.DisplayNotification("~g~EnhancedStops~s~ is not compactible with ~r~Ultimate Backup~s~. You must choose one.");
+                Game.LogTrivial("EH: Ultimate Backup Detected. The plugin is not loading!");
                 return;
             }
 

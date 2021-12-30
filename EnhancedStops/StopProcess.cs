@@ -14,7 +14,6 @@ namespace EnhancedStops
     {
         private static Ped _currentPed;
         private static GameFiber _process;
-        private static GameFiber _render;
         private static bool _isBeingDisposed;
 
         private static readonly ObjectPool _pool = new ObjectPool();
@@ -53,10 +52,9 @@ namespace EnhancedStops
         internal static void Initialize()
         {
             _process = new GameFiber(Fiber, "EnhancedStops process");
-            _render = new GameFiber(Render, "EnhancedStops rendering");
+            _ = GameFiber.StartNew(Render);
 
             _process.Start();
-            _render.Start();
 
             Game.DisplayNotification(
                 Globals.ModIconDictionary,

@@ -51,7 +51,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Response\Schemas\PedWithOutfit.cs" />
     <Compile Include="Response\Schemas\Unit.cs" />
-    <Compile Include="SprintProcess.cs" />
     <Compile Include="StopProcess.cs" />
     <Compile Include="Util\Config.cs" />
     <Compile Include="Util\Radio.cs" />

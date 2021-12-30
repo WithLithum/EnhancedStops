@@ -9,7 +9,7 @@ namespace EnhancedStops.Util
         private static Vector3 _stopArea;
         private static uint _handle;
 
-        internal static void Dispose()
+        internal static void CleanUp()
         {
             if (_trafficBlip)
             {

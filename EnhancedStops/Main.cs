@@ -41,7 +41,6 @@ namespace EnhancedStops
             if (onDuty)
             {
                 StopProcess.Initialize();
-                SprintProcess.Init();
             }
         }
     }

@@ -19,9 +19,6 @@ namespace EnhancedStops.Util
         {
             Directory.CreateDirectory(@"Data\WithLithum\EnhancedStops\");
             MenuKey = iniFile.ReadEnum("Generic", "MenuKey", Keys.G);
-            SuperSprintKey = iniFile.ReadEnum("Generic", "SuperSprintKey", Keys.Enter);
-            SuperSprintCooldown = iniFile.ReadInt32("SuperSprint", "SuperSprintCooldown", 10);
-            SuperSpringTimeout = iniFile.ReadInt32("SuperSprint", "SuperSprintTimeout", 3);
 
             TransportUnit = JsonConvert.DeserializeObject<Unit>(
                     File.ReadAllText("Data\\WithLithum\\EnhancedStops\\units\\transport.json")
@@ -29,9 +26,6 @@ namespace EnhancedStops.Util
         }
 
         internal static Keys MenuKey { get; }
-        internal static Keys SuperSprintKey { get; }
-        internal static int SuperSprintCooldown { get; }
-        internal static int SuperSpringTimeout { get; }
         internal static Unit TransportUnit { get; }
     }
 }

@@ -25,9 +25,6 @@ namespace EnhancedStops
         private static readonly NativeItem _itemGracefulRemoveFromCar = new NativeItem("Remove from Vehicle", "Gracefully removes the suspect from it's current vehicle.");
         private static readonly NativeItem _itemCallTransport = new NativeItem("Request transport unit", "If subject set down on the ground, requests a transport unit.");
 
-        private static readonly NativeMenu _generalActionsMenu = new NativeMenu(Globals.ModName, "General Actions");
-        private static readonly NativeItem _itemSlowDownTraffic = new NativeItem("Slow Down Traffic", "Slows down traffic in the current area.");
-
         private static readonly NativeMenu _trafficStopMenu = new NativeMenu(Globals.ModName, "Traffic Stop");
         private static readonly NativeItem _itemCheckVehicle = new NativeItem("Request Vehicle Check", "Request dispatch to check the vehicle status.");
         private static readonly NativeItem _itemCheckDriver = new NativeItem("Request Driver Status Check", "Requests dispatch to check the driver's status.");

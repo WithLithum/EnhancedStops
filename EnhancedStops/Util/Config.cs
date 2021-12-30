@@ -13,13 +13,11 @@ namespace EnhancedStops.Util
 {
     internal static class Config
     {
-        private static readonly InitializationFile iniFile;
+        private static readonly InitializationFile iniFile = new InitializationFile(@"plugins\LSPDFR\EnhancedStops.ini");
 
         static Config()
         {
             Directory.CreateDirectory(@"Data\WithLithum\EnhancedStops\");
-            iniFile = new InitializationFile(@"plugins\LSPDFR\EnhancedStops.ini");
-
             MenuKey = iniFile.ReadEnum("Generic", "MenuKey", Keys.G);
             SuperSprintKey = iniFile.ReadEnum("Generic", "SuperSprintKey", Keys.Enter);
             SuperSprintCooldown = iniFile.ReadInt32("SuperSprint", "SuperSprintCooldown", 10);
@@ -30,10 +28,10 @@ namespace EnhancedStops.Util
                 );
         }
 
-        internal static Keys MenuKey { get; private set; }
-        internal static Keys SuperSprintKey { get; private set; }
-        internal static int SuperSprintCooldown { get; private set; }
-        internal static int SuperSpringTimeout { get; private set; }
+        internal static Keys MenuKey { get; }
+        internal static Keys SuperSprintKey { get; }
+        internal static int SuperSprintCooldown { get; }
+        internal static int SuperSpringTimeout { get; }
         internal static Unit TransportUnit { get; }
     }
 }

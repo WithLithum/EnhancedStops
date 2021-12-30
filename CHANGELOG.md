@@ -9,12 +9,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 * All dates are UTC+08:00.
 
-## [Unreleased]
+## Unreleased
+
+
+
+## 0.1.1 [2021/12/30]
 
 * Initial public build.
-
-* Add base features and two menus.
-
-* Add "Check ID" feature to stopped and arrested peds.
-
-* Add "Graceful remove from vehicle" feature to arrested peds in vehicle.

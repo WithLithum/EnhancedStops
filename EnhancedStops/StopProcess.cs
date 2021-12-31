@@ -84,17 +84,18 @@ namespace EnhancedStops
 
             // Create menus
             _menu.Add(_itemCheckId);
-            _menu.Banner = new ScaledTexture(Globals.BackgroundDictionary, Globals.BackgroundTexture);
+            _menu.Banner = Globals.BackgroundRect;
+
             _pool.Add(_menu);
 
             _arrestMenu.Add(_itemCheckIdArrested);
-            _arrestMenu.Banner = new ScaledTexture(Globals.BackgroundDictionary, Globals.BackgroundTexture);
+            _arrestMenu.Banner = Globals.BackgroundRect;
             _arrestMenu.Add(_itemGracefulRemoveFromCar);
             _arrestMenu.Add(_itemCallTransport);
             _pool.Add(_arrestMenu);
 
             _trafficStopMenu.Add(_itemCheckVehicle);
-            _trafficStopMenu.Banner = new ScaledTexture(Globals.BackgroundDictionary, Globals.BackgroundTexture);
+            _trafficStopMenu.Banner = Globals.BackgroundRect;
             _trafficStopMenu.Add(_itemCheckDriver);
             _pool.Add(_trafficStopMenu);
 

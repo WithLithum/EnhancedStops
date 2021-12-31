@@ -9,9 +9,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 * All dates are UTC+08:00.
 
-## Unreleased
+## 0.1.2 [2021/12/31]
 
+Built against LSPD First Response 0.4.9
 
+* Added a custom banner.
+
+* Modified ratios for vehicle details.
 
 ## 0.1.1 [2021/12/30]
 

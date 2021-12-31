@@ -14,9 +14,6 @@ namespace EnhancedStops
         internal const string ModIconDictionary = "commonmenu";
         internal const string ModIconTexture = "shop_makeup_icon_a";
 
-        internal static readonly ScaledRectangle BackgroundRect = new ScaledRectangle(new PointF(), new SizeF(512f, 128f))
-        {
-            Color = Color.FromArgb(121, Color.Black)
-        };
+        internal static readonly ScaledTexture BackgroundRect = new ScaledTexture("", "");
     }
 }

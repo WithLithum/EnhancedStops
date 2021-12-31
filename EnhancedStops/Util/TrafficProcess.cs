@@ -10,7 +10,6 @@ namespace EnhancedStops.Util
     internal static class TrafficProcess
     {
         private static Blip _trafficBlip;
-        private static Vector3 _stopArea;
         private static uint _handle;
 
         internal static void CleanUp()

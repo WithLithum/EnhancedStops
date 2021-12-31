@@ -20,15 +20,15 @@ namespace EnhancedStops
         private static bool _isBeingDisposed;
 
         private static readonly ObjectPool _pool = new ObjectPool();
-        private static readonly NativeMenu _menu = new NativeMenu(Globals.ModName, "Interaction Menu");
+        private static readonly NativeMenu _menu = new NativeMenu("", "Interaction Menu");
         private static readonly NativeItem _itemCheckId = new NativeItem("Request status check", "Requests dispatch to check for the ped status.");
 
-        private static readonly NativeMenu _arrestMenu = new NativeMenu(Globals.ModName, "Arrest Interactions");
+        private static readonly NativeMenu _arrestMenu = new NativeMenu("", "Arrest Interactions");
         private static readonly NativeItem _itemCheckIdArrested = new NativeItem("Request status check", "Requests dispatch to check for the suspect status.");
         private static readonly NativeItem _itemGracefulRemoveFromCar = new NativeItem("Remove from Vehicle", "Gracefully removes the suspect from it's current vehicle.");
         private static readonly NativeItem _itemCallTransport = new NativeItem("Request transport unit", "If subject set down on the ground, requests a transport unit.");
 
-        private static readonly NativeMenu _trafficStopMenu = new NativeMenu(Globals.ModName, "Traffic Stop");
+        private static readonly NativeMenu _trafficStopMenu = new NativeMenu("", "Traffic Stop");
         private static readonly NativeItem _itemCheckVehicle = new NativeItem("Request Vehicle Check", "Request dispatch to check the vehicle status.");
         private static readonly NativeItem _itemCheckDriver = new NativeItem("Request Driver Status Check", "Requests dispatch to check the driver's status.");
 

@@ -18,6 +18,8 @@ namespace EnhancedStops.Util
             // Ensure exists
             Directory.CreateDirectory(@"Data\WithLithum\EnhancedStops\");
             MenuKey = iniFile.ReadEnum("Generic", "MenuKey", Keys.G);
+            MustIdentifyBeforeStatusCheck = iniFile.ReadBoolean("Generic", nameof(MustIdentifyBeforeStatusCheck), false);
+            IdentifyOnStatusCheck = iniFile.ReadBoolean("Generic", nameof(IdentifyOnStatusCheck), true);
 
             VehicleIssueRate = iniFile.ReadSingle("Vehicles", nameof(VehicleIssueRate), 15);
             VehicleInsuranceIssuePercentage = iniFile.ReadSingle("Vehicles", nameof(VehicleInsuranceIssuePercentage), 55);
@@ -40,5 +42,7 @@ namespace EnhancedStops.Util
         internal static float VehicleBothIssuesPercentage { get; }
         internal static float ExpirationRatio { get; }
         internal static bool TreatUnregisteredVehiclesAsNoPlate { get; }
+        internal static bool MustIdentifyBeforeStatusCheck { get; }
+        internal static bool IdentifyOnStatusCheck { get; }
     }
 }

@@ -119,6 +119,11 @@ namespace EnhancedStops
                     _itemGracefulRemoveFromCar.Enabled = _currentPed.IsInAnyPoliceVehicle;
                 }
 
+                if (_menu.Visible && _currentPed && Config.MustIdentifyBeforeStatusCheck)
+                {
+                    _itemCheckId.Enabled = Functions.HasPedBeenIdentified(_currentPed);
+                }
+
                 // If it is key down and no menu displayed
                 if (Game.IsKeyDown(Config.MenuKey) && !_pool.AreAnyVisible)
                 {
@@ -212,10 +217,18 @@ namespace EnhancedStops
             {
                 Functions.PlayPlayerRadioAction(Functions.GetPlayerRadioAction(), 2500);
 
+                if (Config.IdentifyOnStatusCheck)
+                {
+                    Functions.SetPedAsIdentified(_currentPed, true);
+                }
+
+                // Moving it here so the code below is not vulernable
+                // to InvalidHandleableException
+                var persona = Functions.GetPersonaForPed(_currentPed);
+
                 // Add a delay here
                 GameFiber.StartNew(() =>
                 {
-                    var persona = Functions.GetPersonaForPed(_currentPed);
                     Radio.DisplayConversation(Game.LocalPlayer.Name, $"Requesting check for ~y~{persona.FullName}, born {persona.Birthday.ToShortDateString()}");
                     GameFiber.Sleep(2500);
                     Radio.DisplayConversation("Dispatch", "Copy, stand by...");

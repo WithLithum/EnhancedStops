@@ -113,9 +113,10 @@ namespace EnhancedStops
             {
                 GameFiber.Yield();
 
-                if (_arrestMenu.Visible && _currentPed )
+                if (_arrestMenu.Visible && _currentPed)
                 {
                     _itemCallTransport.Enabled = _currentPed.IsStill;
+                    _itemGracefulRemoveFromCar.Enabled = _currentPed.IsInAnyPoliceVehicle;
                 }
 
                 // If it is key down and no menu displayed

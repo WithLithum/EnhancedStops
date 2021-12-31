@@ -177,12 +177,6 @@ namespace EnhancedStops
                 return;
             }
 
-            if (Functions.GetPedArrestingOfficer(_currentPed) != Game.LocalPlayer.Character)
-            {
-                Game.DisplaySubtitle("~r~The ped is not arrested by you.");
-                return;
-            }
-
             Functions.SetPedAsArrested(_currentPed, true, false);
             Functions.RequestSuspectTransport(_currentPed);
 

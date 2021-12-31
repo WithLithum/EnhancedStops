@@ -4,6 +4,7 @@
 
 using EnhancedStops.Util;
 using LemonUI;
+using LemonUI.Elements;
 using LemonUI.Menus;
 using LSPD_First_Response.Mod.API;
 using Rage;
@@ -83,14 +84,17 @@ namespace EnhancedStops
 
             // Create menus
             _menu.Add(_itemCheckId);
+            _menu.Banner = new ScaledTexture(Globals.BackgroundDictionary, Globals.BackgroundTexture);
             _pool.Add(_menu);
 
             _arrestMenu.Add(_itemCheckIdArrested);
+            _arrestMenu.Banner = new ScaledTexture(Globals.BackgroundDictionary, Globals.BackgroundTexture);
             _arrestMenu.Add(_itemGracefulRemoveFromCar);
             _arrestMenu.Add(_itemCallTransport);
             _pool.Add(_arrestMenu);
 
             _trafficStopMenu.Add(_itemCheckVehicle);
+            _trafficStopMenu.Banner = new ScaledTexture(Globals.BackgroundDictionary, Globals.BackgroundTexture);
             _trafficStopMenu.Add(_itemCheckDriver);
             _pool.Add(_trafficStopMenu);
 

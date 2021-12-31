@@ -10,5 +10,8 @@ namespace EnhancedStops
 
         internal const string ModIconDictionary = "commonmenu";
         internal const string ModIconTexture = "shop_makeup_icon_a";
+
+        internal const string BackgroundDictionary = "lithium_huds";
+        internal const string BackgroundTexture = "es_banner_blur";
     }
 }

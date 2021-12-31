@@ -15,10 +15,25 @@ namespace EnhancedStops.Util
 
         static Config()
         {
+            // Ensure exists
             Directory.CreateDirectory(@"Data\WithLithum\EnhancedStops\");
             MenuKey = iniFile.ReadEnum("Generic", "MenuKey", Keys.G);
+
+            VehicleIssueRate = iniFile.ReadSingle("Vehicles", nameof(VehicleIssueRate), 15);
+            VehicleInsuranceIssuePercentage = iniFile.ReadSingle("Vehicles", nameof(VehicleInsuranceIssuePercentage), 55);
+            VehicleRegistrationIssuePercentage = iniFile.ReadSingle("Vehicles", nameof(VehicleRegistrationIssuePercentage), 25);
+            VehicleBothIssuesPercentage = iniFile.ReadSingle("Vehicles", nameof(VehicleBothIssuesPercentage), 15);
+            ExpirationRatio = iniFile.ReadSingle("Vehicles", nameof(ExpirationRatio), 72);
+            TreatUnregisteredVehiclesAsNoPlate = iniFile.ReadBoolean("Vehicles", nameof(TreatUnregisteredVehiclesAsNoPlate), false);
         }
 
         internal static Keys MenuKey { get; }
+
+        internal static float VehicleIssueRate { get; }
+        internal static float VehicleInsuranceIssuePercentage { get; }
+        internal static float VehicleRegistrationIssuePercentage { get; }
+        internal static float VehicleBothIssuesPercentage { get; }
+        internal static float ExpirationRatio { get; }
+        internal static bool TreatUnregisteredVehiclesAsNoPlate { get; }
     }
 }

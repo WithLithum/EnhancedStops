@@ -6,10 +6,13 @@ using EnhancedStops.Util;
 using LemonUI;
 using LemonUI.Elements;
 using LemonUI.Menus;
+using LSPD_First_Response.Engine.Scripting.Entities;
 using LSPD_First_Response.Mod.API;
 using Rage;
 using System;
 using System.Drawing;
+using System.Runtime.CompilerServices;
+using System.Runtime.Remoting.Messaging;
 
 namespace EnhancedStops
 {
@@ -31,6 +34,8 @@ namespace EnhancedStops
         private static readonly NativeMenu _trafficStopMenu = new NativeMenu("", "Traffic Stop");
         private static readonly NativeItem _itemCheckVehicle = new NativeItem("Request Vehicle Check", "Request dispatch to check the vehicle status.");
         private static readonly NativeItem _itemCheckDriver = new NativeItem("Request Driver Status Check", "Requests dispatch to check the driver's status.");
+        private static readonly NativeListItem<string> _itemCheckPassengers = new NativeListItem<string>("Request Passenger Status Check", "Requests dispatch to check the status of the specified passenger.",
+            "Front", "Left-Rear", "Right-Rear");
 
         public static void Main()
         {
@@ -97,6 +102,7 @@ namespace EnhancedStops
             _trafficStopMenu.Add(_itemCheckVehicle);
             _trafficStopMenu.Banner = Globals.BackgroundRect;
             _trafficStopMenu.Add(_itemCheckDriver);
+            _trafficStopMenu.Add(_itemCheckPassengers);
             _pool.Add(_trafficStopMenu);
 
             // They does the same thing
@@ -105,6 +111,7 @@ namespace EnhancedStops
             _itemCheckIdArrested.Activated += ItemCheckId_Activated;
             _itemGracefulRemoveFromCar.Activated += ItemGracefulRemoveFromCar_Activated;
             _itemCallTransport.Activated += _itemCallTransport_Activated;
+            _itemCheckPassengers.Activated += _itemCheckPassengers_Activated;
 
             _itemCheckDriver.Activated += ItemCheckDriver_Activated;
             _itemCheckVehicle.Activated += ItemCheckVehicle_Activated;
@@ -169,6 +176,37 @@ namespace EnhancedStops
             }
         }
 
+        private static void _itemCheckPassengers_Activated(object sender, EventArgs e)
+        {
+            var vehicle = _currentPed.CurrentVehicle;
+
+            // Maybe we can perform this check dynamically?
+            if (vehicle.IsSeatFree(_itemCheckPassengers.SelectedIndex))
+            {
+                Game.DisplaySubtitle("~r~The selected passenger seat was empty.");
+                return;
+            }
+
+            var ped = vehicle.GetPedOnSeat(_itemCheckPassengers.SelectedIndex);
+
+            if (!ped)
+            {
+                Game.LogTrivial("ES: found invalid ped after check");
+                Game.DisplaySubtitle("~r~Unexpected error.");
+                return;
+            }
+
+            if (ped.IsDead)
+            {
+                Game.DisplaySubtitle("~r~The selected passenger was dead.");
+                return;
+            }
+
+            // Actual call
+            var persona = Functions.GetPersonaForPed(ped);
+            Radio.DisplayPedId(persona);
+        }
+
         private static void _itemCallTransport_Activated(object sender, EventArgs e)
         {
             if (!_currentPed.IsStill)
@@ -220,16 +258,7 @@ namespace EnhancedStops
                 // to InvalidHandleableException
                 var persona = Functions.GetPersonaForPed(_currentPed);
 
-                // Add a delay here
-                GameFiber.StartNew(() =>
-                {
-                    Radio.DisplayConversation(Game.LocalPlayer.Name, $"Requesting check for ~y~{persona.FullName}, born {persona.Birthday.ToShortDateString()}");
-                    GameFiber.Sleep(2500);
-                    Radio.DisplayConversation("Dispatch", "Copy, stand by...");
-                    GameFiber.Sleep(MathHelper.GetRandomInteger(1500, 3000));
-                    Game.DisplayNotification("commonmenu", "shop_mask_icon_a", "Dispatch", "Ped Status",
-                        $"~y~{persona.FullName}~s~, born {persona.Birthday.ToShortDateString()}~n~License: {Radio.GetLicenseStateString(persona.ELicenseState)}~s~~n~Wanted: {Radio.GetWantedString(persona.Wanted)}");
-                }, "EnhancedStops status check (ped)");
+                Radio.DisplayPedId(persona);
             }
         }
 

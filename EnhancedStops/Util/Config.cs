@@ -1,12 +1,7 @@
 ﻿using EnhancedStops.Response.Schemas;
 using Newtonsoft.Json;
 using Rage;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace EnhancedStops.Util

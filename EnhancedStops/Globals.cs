@@ -1,4 +1,8 @@
-﻿namespace EnhancedStops
+﻿// Copyright (C) WithLithum & contributors 2021, 2022.
+// See NOTICE for full notice (including exceptions)
+// See LICENSE for the license.
+
+namespace EnhancedStops
 {
     internal static class Globals
     {

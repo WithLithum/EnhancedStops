@@ -1,4 +1,8 @@
-﻿using EnhancedStops.Util;
+﻿// Copyright (C) WithLithum & contributors 2021, 2022.
+// See NOTICE for full notice (including exceptions)
+// See LICENSE for the license.
+
+using EnhancedStops.Util;
 using LSPD_First_Response.Mod.API;
 using Rage;
 using System.IO;

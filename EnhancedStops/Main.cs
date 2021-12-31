@@ -37,6 +37,7 @@ namespace EnhancedStops
                 return;
             }
 
+            GameFiber.StartNew(Config.Init, "EH config");
             Functions.OnOnDutyStateChanged += Functions_OnOnDutyStateChanged;
         }
 

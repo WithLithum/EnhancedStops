@@ -27,6 +27,11 @@ namespace EnhancedStops.Util
             TreatUnregisteredVehiclesAsNoPlate = iniFile.ReadBoolean("Vehicles", nameof(TreatUnregisteredVehiclesAsNoPlate), false);
         }
 
+        internal static void Init()
+        {
+            // nullsub for triggering static consturctor
+        }
+
         internal static Keys MenuKey { get; }
 
         internal static float VehicleIssueRate { get; }

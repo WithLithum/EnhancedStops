@@ -1,4 +1,8 @@
-﻿using EnhancedStops.Response.Schemas;
+﻿// Copyright (C) WithLithum & contributors 2021, 2022.
+// See NOTICE for full notice (including exceptions)
+// See LICENSE for the license.
+
+using EnhancedStops.Response.Schemas;
 using Newtonsoft.Json;
 using Rage;
 using System.IO;

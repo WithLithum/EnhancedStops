@@ -1,4 +1,8 @@
-﻿using Rage;
+﻿// Copyright (C) WithLithum & contributors 2021, 2022.
+// See NOTICE for full notice (including exceptions)
+// See LICENSE for the license.
+
+using Rage;
 using System.Drawing;
 
 namespace EnhancedStops.Util

@@ -113,6 +113,11 @@ namespace EnhancedStops
             {
                 GameFiber.Yield();
 
+                if (_arrestMenu.Visible && _currentPed )
+                {
+                    _itemCallTransport.Enabled = _currentPed.IsStill;
+                }
+
                 // If it is key down and no menu displayed
                 if (Game.IsKeyDown(Config.MenuKey) && !_pool.AreAnyVisible)
                 {
@@ -145,6 +150,11 @@ namespace EnhancedStops
 
                     if (Functions.IsPedArrested(truePed))
                     {
+                        if (truePed.Metadata.IsTransportActive != null && truePed.Metadata.IsTransportActive)
+                        {
+                            continue;
+                        }
+
                         _itemGracefulRemoveFromCar.Enabled = truePed.IsInAnyVehicle(false);
                         _arrestMenu.Visible = !_arrestMenu.Visible;
                     }
@@ -155,7 +165,25 @@ namespace EnhancedStops
 
         private static void _itemCallTransport_Activated(object sender, EventArgs e)
         {
+            if (!_currentPed.IsStill)
+            {
+                Game.DisplaySubtitle("~r~The ped must be standing still.");
+                return;
+            }
+
+            if (Functions.GetPedArrestingOfficer(_currentPed) != Game.LocalPlayer.Character)
+            {
+                Game.DisplaySubtitle("~r~The ped is not arrested by you.");
+                return;
+            }
+
+            Functions.SetPedAsArrested(_currentPed, true, false);
             Functions.RequestSuspectTransport(_currentPed);
+
+            Functions.PlayScannerAudioUsingPosition(Globals.RadioTransportRequired, _currentPed.Position);
+
+            _currentPed.Metadata.TransportActive = true;
+            _arrestMenu.Visible = false;
         }
 
         private static void ItemCheckVehicle_Activated(object sender, EventArgs e)
@@ -173,6 +201,7 @@ namespace EnhancedStops
             if (_currentPed && _currentPed.IsInAnyVehicle(false))
             {
                 _currentPed.Tasks.LeaveVehicle(LeaveVehicleFlags.LeaveDoorOpen);
+                _arrestMenu.Visible = false;
             }
         }
 

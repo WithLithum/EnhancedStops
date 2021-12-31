@@ -54,6 +54,7 @@
     <Compile Include="Util\Config.cs" />
     <Compile Include="Util\Radio.cs" />
     <Compile Include="Util\TrafficProcess.cs" />
+    <Compile Include="Util\VehicleUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="LemonUI.RagePluginHook">

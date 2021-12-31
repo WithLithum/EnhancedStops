@@ -6,6 +6,7 @@ using LSPD_First_Response.Engine.Scripting.Entities;
 using LSPD_First_Response.Mod.API;
 using Rage;
 using System;
+using System.Text;
 
 namespace EnhancedStops.Util
 {
@@ -26,26 +27,42 @@ namespace EnhancedStops.Util
             if (vehicle == null) throw new ArgumentNullException(nameof(vehicle));
             if (!vehicle.IsValid()) throw new ArgumentException("Invalid vehicle!", nameof(vehicle));
 
-            string vehicleStat = "~r~Undefined";
-            string vehicleInsurance = "~r~Undefined";
+            var info = VehicleUtil.QueryInformation(vehicle);
 
-            if (vehicle.Metadata.Registry == null)
+            _ = GameFiber.StartNew(() =>
             {
-                vehicle.Metadata.Registry = MathHelper.GetRandomInteger(2, 12) > 5;
-            }
+                GameFiber.Sleep(5000);
 
-            if (vehicle.Metadata.Insurance == null)
+                var sb = new StringBuilder()
+                    .Append("License Plate: ~b~")
+                    .Append(info.LicensePlate)
+                    .Append("~s~~n~Registration: ")
+                    .Append(GetStatusString(info.Registration))
+                    .Append("~s~~n~Insurance: ")
+                    .Append(GetStatusString(info.Insurance))
+                    .ToString();
+
+                Game.DisplayNotification("commonmenu",
+                    "shop_garage_icon_a",
+                    "Dispatch",
+                    "Vehicle Status",
+                    sb);
+            }, "Display Vehicle Information");
+        }
+
+        internal static string GetStatusString(VehicleUtil.VehicleStatus status)
+        {
+            switch (status)
             {
-                vehicle.Metadata.Insurance = MathHelper.GetRandomInteger(2, 12) > 5;
+                default:
+                    return "~y~NOT FOUND";
+                case VehicleUtil.VehicleStatus.Expired:
+                    return "~r~EXPIRED";
+                case VehicleUtil.VehicleStatus.Valid:
+                    return "~g~VALID";
+                case VehicleUtil.VehicleStatus.None:
+                    return "~g~NONE";
             }
-
-            vehicleStat = vehicle.Metadata.Registry ? "~g~Valid" : "~r~Invalid";
-            vehicleInsurance = vehicle.Metadata.Insurance ? "~g~Valid" : "~r~Invalid";
-
-            var info = Functions.GetVehicleOwnerName(vehicle);
-
-            Game.DisplayNotification("commonmenu", "shop_garage_icon_a", "Dispatch", "Vehicle Status", 
-                $"~b~Owner: ~y~{info}~n~~b~Stolen: {GetYesNoString(vehicle.IsStolen)}~n~~b~Registration: {vehicleStat}~n~~b~Insurance: {vehicleInsurance}");
         }
 
         internal static string GetLicenseStateString(ELicenseState state)

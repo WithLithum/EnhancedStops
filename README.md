@@ -56,9 +56,9 @@ There are things to notice:
 
 * Some code styles must be followed:
   
-  * Add a dash before private fields.
+  * Add an underscore (_) before private fields.
   
-  * Use Allman bracing.
+  * Use Allman bracing, with four spaces indenting.
 
 ## License
 

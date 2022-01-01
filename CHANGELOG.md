@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 * All dates are UTC+08:00.
 
-## Unreleased
+## 0.1.3 [2022/1/1]
 
 Built against 0.4.9
 
@@ -18,6 +18,8 @@ Built against 0.4.9
 * Updated LemonUI to 1.6.0
 
 * The project now builds on x64 instead of Any CPU
+
+* Adds an option in the Traffic Stop menu to check passenger IDs
 
 * Fixed the issue resulting Transport request does not work
 

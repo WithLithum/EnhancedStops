@@ -9,6 +9,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 * All dates are UTC+08:00.
 
+## 0.1.4 [2022/1/2]
+
+Built against LSPDFR 0.4.9
+
+### Changed
+
+* Availability and seats available for checking via Request Passenger Status Check are now determined when opening the menu
+
+* Fixed an issue resulted in Arrest Interaction menu can still be opened for suspects with transport unit assigned.
+
+* Adds dispatch conversation message when checking for vehicle status during traffic stops.
+
 ## 0.1.3 [2022/1/1]
 
 Built against 0.4.9

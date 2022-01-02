@@ -31,6 +31,10 @@ namespace EnhancedStops.Util
 
             _ = GameFiber.StartNew(() =>
             {
+                DisplayConversation(Game.LocalPlayer.Name, $"Requesting check for vehicle with license plate ~y~{info.LicensePlate}");
+                GameFiber.Sleep(1500);
+                DisplayConversation("Dispatch", "Copy, stand by...");
+
                 GameFiber.Sleep(5000);
 
                 var sb = new StringBuilder()

@@ -144,7 +144,7 @@ namespace EnhancedStops
                         _itemCheckPassengers.Clear();
 
                         // Check if any passengers in vehicle
-                        if (veh.HasPassengers)
+                        if (!veh.HasPassengers)
                         {
                             _itemCheckPassengers.Enabled = false;
                         }

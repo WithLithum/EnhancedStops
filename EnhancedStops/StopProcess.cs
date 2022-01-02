@@ -179,7 +179,9 @@ namespace EnhancedStops
 
                     if (Functions.IsPedArrested(truePed))
                     {
-                        if (truePed.Metadata.IsTransportActive != null && truePed.Metadata.IsTransportActive)
+#pragma warning disable S1125 // Boolean literals should not be redundant
+                        if (truePed.Metadata.IsTransportActive == true)
+#pragma warning restore S1125 // Boolean literals should not be redundant
                         {
                             continue;
                         }

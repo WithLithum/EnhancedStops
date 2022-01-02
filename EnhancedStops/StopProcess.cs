@@ -34,8 +34,7 @@ namespace EnhancedStops
         private static readonly NativeMenu _trafficStopMenu = new NativeMenu("", "Traffic Stop");
         private static readonly NativeItem _itemCheckVehicle = new NativeItem("Request Vehicle Check", "Request dispatch to check the vehicle status.");
         private static readonly NativeItem _itemCheckDriver = new NativeItem("Request Driver Status Check", "Requests dispatch to check the driver's status.");
-        private static readonly NativeListItem<string> _itemCheckPassengers = new NativeListItem<string>("Request Passenger Status Check", "Requests dispatch to check the status of the specified passenger.",
-            "Front", "Left-Rear", "Right-Rear");
+        private static readonly NativeListItem<string> _itemCheckPassengers = new NativeListItem<string>("Request Passenger Status Check", "Requests dispatch to check the status of the specified passenger.");
 
         public static void Main()
         {
@@ -139,6 +138,23 @@ namespace EnhancedStops
                     {
                         // Assign currentped as pullover suspect
                         _currentPed = Functions.GetPulloverSuspect(pull);
+
+                        var veh = _currentPed.CurrentVehicle;
+
+                        _itemCheckPassengers.Clear();
+
+                        // Check if any passengers in vehicle
+                        if (veh.HasPassengers)
+                        {
+                            _itemCheckPassengers.Enabled = false;
+                        }
+
+                        // Dynamically add those in each startup
+                        // Natives are fash though (since we are on the thread dedicated for scripting)
+                        if (!veh.IsSeatFree(0)) _itemCheckPassengers.Add("Front");
+                        if (!veh.IsSeatFree(1)) _itemCheckPassengers.Add("Left Rear");
+                        if (!veh.IsSeatFree(2)) _itemCheckPassengers.Add("Right Rear");
+
                         _trafficStopMenu.Visible = !_trafficStopMenu.Visible;
                         continue;
                     }

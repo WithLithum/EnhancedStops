@@ -10,6 +10,7 @@ using LSPD_First_Response.Engine.Scripting.Entities;
 using LSPD_First_Response.Mod.API;
 using Rage;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Runtime.Remoting.Messaging;
@@ -35,6 +36,10 @@ namespace EnhancedStops
         private static readonly NativeItem _itemCheckVehicle = new NativeItem("Request Vehicle Check", "Request dispatch to check the vehicle status.");
         private static readonly NativeItem _itemCheckDriver = new NativeItem("Request Driver Status Check", "Requests dispatch to check the driver's status.");
         private static readonly NativeListItem<string> _itemCheckPassengers = new NativeListItem<string>("Request Passenger Status Check", "Requests dispatch to check the status of the specified passenger.");
+
+        private static readonly List<Ped> _ignoredPeds = new List<Ped>();
+
+        private static int _calls;
 
         public static void Main()
         {
@@ -179,9 +184,7 @@ namespace EnhancedStops
 
                     if (Functions.IsPedArrested(truePed))
                     {
-#pragma warning disable S1125 // Boolean literals should not be redundant
-                        if (truePed.Metadata.IsTransportActive == true)
-#pragma warning restore S1125 // Boolean literals should not be redundant
+                        if (_ignoredPeds.Contains(truePed))
                         {
                             continue;
                         }
@@ -238,7 +241,30 @@ namespace EnhancedStops
 
             Functions.PlayScannerAudioUsingPosition(Globals.RadioTransportRequired, _currentPed.Position);
 
-            _currentPed.Metadata.TransportActive = true;
+            _ignoredPeds.Add(_currentPed);
+
+            // If there are enough requests, clean up the list once.
+            if (_calls < 10)
+            {
+                _calls++;
+            }
+            else
+            {
+                // Remove peds
+                GameFiber.StartNew(() =>
+                {
+                    for (int i = 0; i < _ignoredPeds.Count; i++)
+                    {
+                        GameFiber.Yield();
+                        if (!_ignoredPeds[i] || _ignoredPeds[i].IsDead)
+                        {
+                            _ignoredPeds.RemoveAt(i);
+                        }
+                    }
+                }, "EnhancedStops Cleaning up");
+                _calls = 0;
+            }
+
             _arrestMenu.Visible = false;
         }
 

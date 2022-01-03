@@ -9,7 +9,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 * All dates are UTC+08:00.
 
-## 0.1.4 [2022/1/2]
+## 0.2.1 [2022/1/4]
+
+Built against LSPDFR 0.4.9
+
+### Changed
+
+* Fixed an issue resulted in crash when traffic stop driver got out from the vehicle.
+
+## 0.2.0 [2022/1/2]
 
 Built against LSPDFR 0.4.9
 

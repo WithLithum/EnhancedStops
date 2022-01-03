@@ -9,13 +9,6 @@ namespace EnhancedStops.Util
 {
     internal static class VehicleUtil
     {
-        internal enum VehicleStatus
-        {
-            Valid,
-            Expired,
-            None
-        }
-
         internal class Info
         {
             internal VehicleStatus Registration { get; set; }

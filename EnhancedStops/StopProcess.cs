@@ -124,6 +124,11 @@ namespace EnhancedStops
             {
                 GameFiber.Yield();
 
+                if (_pool.AreAnyVisible)
+                {
+                    Game.HideHelp();
+                }
+
                 if (_arrestMenu.Visible && _currentPed)
                 {
                     _itemCallTransport.Enabled = _currentPed.IsStill;

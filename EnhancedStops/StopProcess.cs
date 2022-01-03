@@ -144,7 +144,22 @@ namespace EnhancedStops
                         // Assign currentped as pullover suspect
                         _currentPed = Functions.GetPulloverSuspect(pull);
 
+                        if (!_currentPed.IsInAnyVehicle(false))
+                        {
+                            // Checked goto
+#pragma warning disable S907 // "goto" statement should not be used
+                            goto JumpTrafficStop;
+#pragma warning restore S907 // "goto" statement should not be used
+                        }
+
                         var veh = _currentPed.CurrentVehicle;
+                        if (!veh)
+                        {
+                            // Checked goto
+#pragma warning disable S907 // "goto" statement should not be used
+                            goto JumpTrafficStop;
+#pragma warning restore S907 // "goto" statement should not be used
+                        }
 
                         _itemCheckPassengers.Clear();
 
@@ -163,6 +178,8 @@ namespace EnhancedStops
                         _trafficStopMenu.Visible = !_trafficStopMenu.Visible;
                         continue;
                     }
+
+                    JumpTrafficStop:
 
                     // Get closet human ped
                     // Not player

@@ -35,6 +35,11 @@ namespace EnhancedStops.Util
             }
         }
 
+        internal static void SetInfo(Vehicle veh, Info inf)
+        {
+            _information[veh] = inf;
+        }
+
         internal static VehicleStatus GetInvalidStatus() => MathHelper.GetRandomInteger(100) < Config.ExpirationRatio ? VehicleStatus.Expired : VehicleStatus.None;
         internal static VehicleStatus GetInvalidStatus(float prect, bool pred) => (!pred && MathHelper.GetRandomInteger(100) < prect) ? GetInvalidStatus() : VehicleStatus.Valid;
         internal static Info CreateInfo(Vehicle veh)

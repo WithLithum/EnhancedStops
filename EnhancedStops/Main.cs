@@ -6,19 +6,23 @@ using EnhancedStops.Util;
 using LSPD_First_Response.Mod.API;
 using Rage;
 using System.IO;
+using System.Reflection;
 
 [assembly: Rage.Attributes.Plugin("BEPIS", Author = "BEPIS", Description = "You know what I hate? That's BEPIS. The taste, the smell, the texture.")]
 
 namespace EnhancedStops
 {
+    /// <inheritdoc />
     public class Main : Plugin
     {
+        /// <inheritdoc />
         public override void Finally()
         {
             TrafficProcess.CleanUp();
             StopProcess.DisposePeds();
         }
 
+        /// <inheritdoc />
         public override void Initialize()
         {
             if (File.Exists(@"plugins\LSPDFR\StopThePed.dll"))

@@ -9,6 +9,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 * All dates are UTC+08:00.
 
+## 0.2.2 [2022/1/5]
+
+Built against LSPDFR 0.4.9
+
+### Added
+
+* A breathalyzer feature has been added, accessible via menus.
+
+### Changed
+
+* Fixed an issue resulted in Check Passengers failed to enable again once disabled.
+
+* Fixed an issue resulted in menus never open again after disabled due to player moving / inside vehicle.
+
+* Fixed a wrong coloring of NONE text of vehicle status check.
+
+* Standing still check has been removed for now.
+
 ## 0.2.1 [2022/1/4]
 
 Built against LSPDFR 0.4.9

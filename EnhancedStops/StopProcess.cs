@@ -184,12 +184,7 @@ namespace EnhancedStops
                         }
 
                         _itemCheckPassengers.Clear();
-
-                        // Check if any passengers in vehicle
-                        if (veh.PassengerCount < 1)
-                        {
-                            _itemCheckPassengers.Enabled = false;
-                        }
+                        _itemCheckPassengers.Enabled = veh.PassengerCount >= 1;
 
                         // Dynamically add those in each startup
                         // Natives are fash though (since we are on the thread dedicated for scripting)

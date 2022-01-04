@@ -22,6 +22,7 @@ namespace EnhancedStops
         private static Ped _currentPed;
         private static GameFiber _process;
         private static bool _isBeingDisposed;
+        private static bool _wasVehicleHelpDisplayed;
 
         private static readonly ObjectPool _pool = new ObjectPool();
         private static readonly NativeMenu _menu = new NativeMenu("", "Interaction Menu");
@@ -40,6 +41,7 @@ namespace EnhancedStops
         private static readonly List<Ped> _ignoredPeds = new List<Ped>();
 
         private static int _calls;
+        private static bool _wasStillHelpDisplayed;
 
         public static void Main()
         {
@@ -143,6 +145,26 @@ namespace EnhancedStops
                 // If it is key down and no menu displayed
                 if (Game.IsKeyDown(Config.MenuKey) && !_pool.AreAnyVisible)
                 {
+                    if (Game.LocalPlayer.Character.IsInAnyVehicle(true))
+                    {
+                        if (!_wasVehicleHelpDisplayed)
+                        {
+                            _wasVehicleHelpDisplayed = true;
+                            Game.DisplayHelp("You can only activate the menu while on foot.");
+                        }
+                        return;
+                    }
+
+                    if (!Game.LocalPlayer.Character.IsStill)
+                    {
+                        if (!_wasStillHelpDisplayed)
+                        {
+                            _wasStillHelpDisplayed = true;
+                            Game.DisplayHelp("You can only activate the menu while standing still.");
+                        }
+                        return;
+                    }
+
                     var pull = Functions.GetCurrentPullover();
                     if (pull != null)
                     {
@@ -272,6 +294,7 @@ namespace EnhancedStops
             }
             else
             {
+                Game.LogTrivial("EH: Firing cleanup");
                 // Remove peds
                 GameFiber.StartNew(() =>
                 {

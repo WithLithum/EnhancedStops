@@ -27,6 +27,7 @@ namespace EnhancedStops
         private static readonly ObjectPool _pool = new ObjectPool();
         private static readonly NativeMenu _menu = new NativeMenu("", "Interaction Menu");
         private static readonly NativeItem _itemCheckId = new NativeItem("Request status check", "Requests dispatch to check for the ped status.");
+        private static readonly NativeItem _itemBreathalyzeFoot = new NativeItem("Breathalyze", "Breathalyzes the suspect.");
 
         private static readonly NativeMenu _arrestMenu = new NativeMenu("", "Arrest Interactions");
         private static readonly NativeItem _itemCheckIdArrested = new NativeItem("Request status check", "Requests dispatch to check for the suspect status.");
@@ -37,6 +38,7 @@ namespace EnhancedStops
         private static readonly NativeItem _itemCheckVehicle = new NativeItem("Request Vehicle Check", "Request dispatch to check the vehicle status.");
         private static readonly NativeItem _itemCheckDriver = new NativeItem("Request Driver Status Check", "Requests dispatch to check the driver's status.");
         private static readonly NativeListItem<string> _itemCheckPassengers = new NativeListItem<string>("Request Passenger Status Check", "Requests dispatch to check the status of the specified passenger.");
+        private static readonly NativeItem _itemBreathalyze = new NativeItem("Breathalyze Driver", "Breathalyzes the driver.");
 
         private static readonly List<Ped> _ignoredPeds = new List<Ped>();
 
@@ -95,6 +97,7 @@ namespace EnhancedStops
 
             // Create menus
             _menu.Add(_itemCheckId);
+            _menu.Add(_itemBreathalyzeFoot);
             _menu.Banner = Globals.BackgroundRect;
 
             _pool.Add(_menu);
@@ -109,6 +112,7 @@ namespace EnhancedStops
             _trafficStopMenu.Banner = Globals.BackgroundRect;
             _trafficStopMenu.Add(_itemCheckDriver);
             _trafficStopMenu.Add(_itemCheckPassengers);
+            _trafficStopMenu.Add(_itemBreathalyze);
             _pool.Add(_trafficStopMenu);
 
             // They does the same thing
@@ -121,6 +125,8 @@ namespace EnhancedStops
 
             _itemCheckDriver.Activated += ItemCheckDriver_Activated;
             _itemCheckVehicle.Activated += ItemCheckVehicle_Activated;
+            _itemBreathalyze.Activated += _itemBreathalyze_Activated;
+            _itemBreathalyzeFoot.Activated += _itemBreathalyze_Activated;
 
             while (!_isBeingDisposed)
             {
@@ -238,6 +244,15 @@ namespace EnhancedStops
                     }
                 }
 
+            }
+        }
+
+        private static void _itemBreathalyze_Activated(object sender, EventArgs e)
+        {
+            if (_currentPed)
+            {
+                _trafficStopMenu.Visible = false;
+                PedUtil.Breathalyze(_currentPed);
             }
         }
 

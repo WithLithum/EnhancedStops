@@ -27,6 +27,9 @@ namespace EnhancedStops.Util
             VehicleBothIssuesPercentage = iniFile.ReadSingle("Vehicles", nameof(VehicleBothIssuesPercentage), 15);
             ExpirationRatio = iniFile.ReadSingle("Vehicles", nameof(ExpirationRatio), 72);
             TreatUnregisteredVehiclesAsNoPlate = iniFile.ReadBoolean("Vehicles", nameof(TreatUnregisteredVehiclesAsNoPlate), false);
+            BacUnit = iniFile.ReadString("Breathalyzer", nameof(BacUnit), "mg/100ml");
+            SummaryOffenseBac = iniFile.ReadSingle("Breathalyzer", nameof(SummaryOffenseBac), 20f);
+            IndictableBac = iniFile.ReadSingle("Breathalyzer", nameof(IndictableBac), 80f);
         }
 
         internal static void Init()
@@ -44,5 +47,9 @@ namespace EnhancedStops.Util
         internal static bool TreatUnregisteredVehiclesAsNoPlate { get; }
         internal static bool MustIdentifyBeforeStatusCheck { get; }
         internal static bool IdentifyOnStatusCheck { get; }
+
+        internal static string BacUnit { get; }
+        internal static float SummaryOffenseBac { get; }
+        internal static float IndictableBac { get; }
     }
 }

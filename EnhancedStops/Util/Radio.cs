@@ -67,17 +67,17 @@ namespace EnhancedStops.Util
             }, "EnhancedStops Display Pedid");
         }
 
-        internal static string GetStatusString(VehicleUtil.VehicleStatus status)
+        internal static string GetStatusString(VehicleStatus status)
         {
             switch (status)
             {
                 default:
                     return "~y~NOT FOUND";
-                case VehicleUtil.VehicleStatus.Expired:
+                case VehicleStatus.Expired:
                     return "~r~EXPIRED";
-                case VehicleUtil.VehicleStatus.Valid:
+                case VehicleStatus.Valid:
                     return "~g~VALID";
-                case VehicleUtil.VehicleStatus.None:
+                case VehicleStatus.None:
                     return "~g~NONE";
             }
         }

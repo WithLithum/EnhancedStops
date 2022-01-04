@@ -78,7 +78,7 @@ namespace EnhancedStops.Util
                 case VehicleStatus.Valid:
                     return "~g~VALID";
                 case VehicleStatus.None:
-                    return "~g~NONE";
+                    return "~r~NONE";
             }
         }
 

@@ -92,6 +92,7 @@ namespace EnhancedStops.Util
 
                 NativeFunction.Natives.BEGIN_TEXT_COMMAND_BUSYSPINNER_ON("STRING");
                 NativeFunction.Natives.ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME("Breathalyzing");
+                NativeFunction.Natives.END_TEXT_COMMAND_BUSYSPINNER_ON(0);
 
                 if (ped.IsInAnyVehicle(false))
                 {
@@ -108,7 +109,6 @@ namespace EnhancedStops.Util
                     Game.LocalPlayer.Character.Tasks.Clear();
                 }
 
-                NativeFunction.Natives.END_TEXT_COMMAND_BUSYSPINNER_ON(0);
 
                 GameFiber.Sleep(3000);
 
@@ -119,32 +119,43 @@ namespace EnhancedStops.Util
 
                 if (_readings[ped] >= Config.IndictableBac)
                 {
-                    off = "~r~was indictable";
+                    off = "~r~was drunk";
                 }
                 else if (_readings[ped] >= Config.SummaryOffenseBac)
                 {
-                    off = "~y~was having summary DUI";
+                    off = "~y~is a little dizzy";
                 }
 
                 var read = _readings[ped];
 
-                Game.DisplayNotification("commonmenu", "mp_specitem_heroin", 
-                    "Breathalyzer",
-                    "Test Result",
-                    $"Reading: ~b~{read}~s~~n~The suspect {off}");
+                if (read == -1)
+                {
+                    Game.DisplayNotification("The suspect failed to provide a valid sample.");
+                }
+                else
+                {
+                    Game.DisplayNotification("commonmenu", "mp_specitem_heroin",
+                        "Breathalyzer",
+                        "Test Result",
+                        $"Reading: ~b~{read}~y~{Config.BacUnit}~s~~n~The suspect {off}");
+                }
+
+                _breathalyzeProgress = false;
             }, "ES Breathalyzer");
         }
 
         internal static float GetRandomReading(PedAlcoholLevel level)
         {
             var rnd = new Random();
+            var dlb = rnd.NextDouble();
+            Game.LogTrivial("ES: Normalized BAC: " + dlb);
             switch (level)
             {
                 default:
                     return 0f;
 
                 case PedAlcoholLevel.Normal:
-                    return (float)MathHelper.Clamp(rnd.NextDouble() * Config.SummaryOffenseBac, 1, Config.SummaryOffenseBac - 0.02f);
+                    return (float)MathHelper.Clamp(dlb * Config.SummaryOffenseBac, 1, Config.SummaryOffenseBac - 0.02f);
 
                 case PedAlcoholLevel.SummaryOffense:
                     return (float)(rnd.NextDouble() * (Config.SummaryOffenseBac));
@@ -153,16 +164,16 @@ namespace EnhancedStops.Util
                     return (float)(rnd.NextDouble() * (Config.SummaryOffenseBac * 2));
 
                 case PedAlcoholLevel.OverDoubleSummaryOffense:
-                    return (float)MathHelper.Clamp(rnd.NextDouble() * (Config.SummaryOffenseBac * 2.5f), Config.SummaryOffenseBac * 2, Config.IndictableBac - 0.02f);
+                    return (float)MathHelper.Clamp(dlb * (Config.SummaryOffenseBac * 2.5f), Config.SummaryOffenseBac * 2, Config.IndictableBac - 0.02f);
 
                 case PedAlcoholLevel.Indictable:
-                    return (float)MathHelper.Clamp(rnd.NextDouble() * (Config.IndictableBac), Config.IndictableBac, (Config.IndictableBac * 2) - 0.02f);
+                    return (float)MathHelper.Clamp(dlb * (Config.IndictableBac), Config.IndictableBac, (Config.IndictableBac * 2) - 0.02f);
 
                 case PedAlcoholLevel.DoubleIndictable:
-                    return (float)MathHelper.Clamp(rnd.NextDouble() * (Config.IndictableBac * 2.5), Config.IndictableBac * 2, (Config.IndictableBac * 4) - 0.02f);
+                    return (float)MathHelper.Clamp(dlb * (Config.IndictableBac * 2.5), Config.IndictableBac * 2, (Config.IndictableBac * 4) - 0.02f);
 
                 case PedAlcoholLevel.TripleIndictable:
-                    return (float)MathHelper.Clamp(rnd.NextDouble() * (Config.IndictableBac * 4.5), Config.IndictableBac * 4, (Config.IndictableBac * 10) - 0.02f);
+                    return (float)MathHelper.Clamp(dlb * (Config.IndictableBac * 4.5), Config.IndictableBac * 4, (Config.IndictableBac * 10) - 0.02f);
 
                 case PedAlcoholLevel.Failed:
                     return -1;
@@ -171,10 +182,12 @@ namespace EnhancedStops.Util
 
         internal static PedAlcoholLevel GetRandomLevel()
         {
-            var rnd = new Random(80);
-            var t = rnd.Next();
+            var rnd = new Random();
+            var t = rnd.Next(80);
 
-            if (t >= 50)
+            Game.LogTrivial($"ES: Chance by: {t}");
+
+            if (t <= 50)
             {
                 return PedAlcoholLevel.None;
             }

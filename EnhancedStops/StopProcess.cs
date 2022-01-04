@@ -43,7 +43,6 @@ namespace EnhancedStops
         private static readonly List<Ped> _ignoredPeds = new List<Ped>();
 
         private static int _calls;
-        private static bool _wasStillHelpDisplayed;
 
         public static void Main()
         {
@@ -158,17 +157,7 @@ namespace EnhancedStops
                             _wasVehicleHelpDisplayed = true;
                             Game.DisplayHelp("You can only activate the menu while on foot.");
                         }
-                        return;
-                    }
-
-                    if (!Game.LocalPlayer.Character.IsStill)
-                    {
-                        if (!_wasStillHelpDisplayed)
-                        {
-                            _wasStillHelpDisplayed = true;
-                            Game.DisplayHelp("You can only activate the menu while standing still.");
-                        }
-                        return;
+                        continue;
                     }
 
                     var pull = Functions.GetCurrentPullover();
@@ -197,7 +186,7 @@ namespace EnhancedStops
                         _itemCheckPassengers.Clear();
 
                         // Check if any passengers in vehicle
-                        if (!veh.HasPassengers)
+                        if (veh.PassengerCount < 1)
                         {
                             _itemCheckPassengers.Enabled = false;
                         }

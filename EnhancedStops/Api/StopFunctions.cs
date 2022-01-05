@@ -22,8 +22,13 @@ namespace EnhancedStops.Api
         /// </summary>
         /// <param name="vehicle">The vehicle to check.</param>
         /// <returns>An instance of <see cref="VehicleStatus"/> representing the registration status of the vehicle.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="vehicle"/> was null.</exception>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="vehicle"/> was invalid.</exception>
         public static VehicleStatus GetRegistrationStatus(Vehicle vehicle)
         {
+            if (vehicle == null) throw new ArgumentNullException(nameof(vehicle));
+            if (!vehicle.IsValid()) throw new ArgumentException("The specified vehicle was invalid!", nameof(vehicle));
+
             return VehicleUtil.QueryInformation(vehicle).Registration;
         }
 
@@ -32,8 +37,12 @@ namespace EnhancedStops.Api
         /// </summary>
         /// <param name="vehicle">The vehicle to check.</param>
         /// <returns>An instance of <see cref="VehicleStatus"/> representing the insurance status of the vehicle.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="vehicle"/> was null.</exception>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="vehicle"/> was invalid.</exception>
         public static VehicleStatus GetInsuranceStatus(Vehicle vehicle)
         {
+            if (vehicle == null) throw new ArgumentNullException(nameof(vehicle));
+            if (!vehicle.IsValid()) throw new ArgumentException("The specified vehicle was invalid!", nameof(vehicle));
             return VehicleUtil.QueryInformation(vehicle).Insurance;
         }
 
@@ -42,8 +51,13 @@ namespace EnhancedStops.Api
         /// </summary>
         /// <param name="vehicle">The vehicle to check.</param>
         /// <param name="status">The status to set.</param>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="vehicle"/> was null.</exception>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="vehicle"/> was invalid.</exception>
         public static void SetRegistrationStatus(Vehicle vehicle, VehicleStatus status)
         {
+            if (vehicle == null) throw new ArgumentNullException(nameof(vehicle));
+            if (!vehicle.IsValid()) throw new ArgumentException("The specified vehicle was invalid!", nameof(vehicle));
+
             var inf = VehicleUtil.QueryInformation(vehicle);
             inf.Registration = status;
             VehicleUtil.SetInfo(vehicle, inf);
@@ -54,8 +68,13 @@ namespace EnhancedStops.Api
         /// </summary>
         /// <param name="vehicle">The vehicle to check.</param>
         /// <param name="status">The status to set.</param>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="vehicle"/> was null.</exception>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="vehicle"/> was invalid.</exception>
         public static void SetInsuranceStatus(Vehicle vehicle, VehicleStatus status)
         {
+            if (vehicle == null) throw new ArgumentNullException(nameof(vehicle));
+            if (!vehicle.IsValid()) throw new ArgumentException("The specified vehicle was invalid!", nameof(vehicle));
+
             var inf = VehicleUtil.QueryInformation(vehicle);
             inf.Insurance = status;
             VehicleUtil.SetInfo(vehicle, inf);
@@ -67,8 +86,13 @@ namespace EnhancedStops.Api
         /// <param name="vehicle">The vehicle.</param>
         /// <param name="registration">The registration status.</param>
         /// <param name="insurance">The insurance status.</param>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="vehicle"/> was null.</exception>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="vehicle"/> was invalid.</exception>
         public static void SetVehicleStatus(Vehicle vehicle, VehicleStatus registration, VehicleStatus insurance)
         {
+            if (vehicle == null) throw new ArgumentNullException(nameof(vehicle));
+            if (!vehicle.IsValid()) throw new ArgumentException("The specified vehicle was invalid!", nameof(vehicle));
+
             var inf = VehicleUtil.QueryInformation(vehicle);
             inf.Registration = registration;
             inf.Insurance = insurance;

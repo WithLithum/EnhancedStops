@@ -9,6 +9,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 * All dates are UTC+08:00.
 
+## 0.2.3 [2022/1/6]
+
+Built against LSPDFR 0.4.9
+
+### Added
+
+* New API for breathalyzer
+
+* A wrapper class will be in distribution from this version
+
+### Changed
+
+* Added argument checks for all APIs
+
+* **LICENSE is now GNU LGPL 3.0 or later**
+
 ## 0.2.2 [2022/1/5]
 
 Built against LSPDFR 0.4.9

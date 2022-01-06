@@ -26,11 +26,11 @@ Or, you can build it from source:
    
    Since this is a framework project do not use `dotnet build`.
 
-3. **Restore NuGet packages and copy LSPDFR dll to References folder.**
+3. **Restore NuGet packages and add LSPDFR reference.**
    
    LSPDFR's dll file will be located at `plugins` folder under your game directory, it's called `LSPD First Response.dll`.
    
-   I also recommend that you put XML documentation file into the references folder.
+   
 
 4. **Select BUILD -> Build Solution.**
    
@@ -62,6 +62,6 @@ There are things to notice:
 
 ## License
 
-This project is licensed under GNU GPL 3.0. You may choose any later version of GNU GPL desired to apply.
+This project is licensed under GNU LGPL 3.0. You may choose any later version of GNU (L)GPL desired to apply.
 
-There's a copy of the full text of the GNU GPL version 3 in the [LICENSE file](LICENSE).
+There is a copy of GNU GPL 3.0 in the [COPYING](COPYING) file while LGPL terms in the [COPYING.LESSER](COPYING.LESSER) file.

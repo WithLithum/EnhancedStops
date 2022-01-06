@@ -33,6 +33,7 @@ namespace EnhancedStops
         private static readonly NativeItem _itemCheckIdArrested = new NativeItem("Request status check", "Requests dispatch to check for the suspect status.");
         private static readonly NativeItem _itemGracefulRemoveFromCar = new NativeItem("Remove from Vehicle", "Gracefully removes the suspect from it's current vehicle.");
         private static readonly NativeItem _itemCallTransport = new NativeItem("Request transport unit", "If subject set down on the ground, requests a transport unit.");
+        private static readonly NativeItem _itemStandHere = new NativeItem("Ask to Stand Here", "If the suspect tries to leave / get into vehicle (due to callout ending, etc.), asks them to stand still.");
 
         private static readonly NativeMenu _trafficStopMenu = new NativeMenu("", "Traffic Stop");
         private static readonly NativeItem _itemCheckVehicle = new NativeItem("Request Vehicle Check", "Request dispatch to check the vehicle status.");
@@ -105,6 +106,7 @@ namespace EnhancedStops
             _arrestMenu.Banner = Globals.BackgroundRect;
             _arrestMenu.Add(_itemGracefulRemoveFromCar);
             _arrestMenu.Add(_itemCallTransport);
+            _arrestMenu.Add(_itemStandHere);
             _pool.Add(_arrestMenu);
 
             _trafficStopMenu.Add(_itemCheckVehicle);
@@ -126,6 +128,8 @@ namespace EnhancedStops
             _itemCheckVehicle.Activated += ItemCheckVehicle_Activated;
             _itemBreathalyze.Activated += _itemBreathalyze_Activated;
             _itemBreathalyzeFoot.Activated += _itemBreathalyze_Activated;
+
+            _itemStandHere.Activated += StandHereActivated;
 
             while (!_isBeingDisposed)
             {
@@ -228,6 +232,17 @@ namespace EnhancedStops
                     }
                 }
 
+            }
+        }
+
+        private static void StandHereActivated(object sender, EventArgs e)
+        {
+            if (_currentPed)
+            {
+                _currentPed.Tasks.ClearImmediately();
+                _currentPed.Tasks.ClearSecondary();
+
+                _currentPed.Tasks.StandStill(-1);
             }
         }
 

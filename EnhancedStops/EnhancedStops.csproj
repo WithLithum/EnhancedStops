@@ -74,7 +74,6 @@
     <Compile Include="Util\Config.cs" />
     <Compile Include="Util\PedUtil.cs" />
     <Compile Include="Util\Radio.cs" />
-    <Compile Include="Util\TrafficProcess.cs" />
     <Compile Include="Util\VehicleStatus.cs" />
     <Compile Include="Util\VehicleUtil.cs" />
   </ItemGroup>

@@ -18,7 +18,6 @@ namespace EnhancedStops
         /// <inheritdoc />
         public override void Finally()
         {
-            TrafficProcess.CleanUp();
             StopProcess.DisposePeds();
         }
 

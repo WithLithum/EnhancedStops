@@ -98,5 +98,35 @@ namespace EnhancedStops.Api
             inf.Insurance = insurance;
             VehicleUtil.SetInfo(vehicle, inf);
         }
+
+        /// <summary>
+        /// Gets the alcohol level of the specified ped.
+        /// </summary>
+        /// <param name="ped">The ped to check.</param>
+        /// <returns>An instance of <see cref="PedAlcoholLevel"/> representing the alcohol level of the specified ped.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if the <paramref name="ped"/> specified was <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentException">Thrown if the <paramref name="ped"/> specified was invalid.</exception>
+        public static PedAlcoholLevel GetPedAlcoholLevel(Ped ped)
+        {
+            if (ped == null) throw new ArgumentNullException(nameof(ped));
+            if (!ped.IsValid()) throw new ArgumentException("The specified ped was invalid!", nameof(ped));
+
+            return PedUtil.GetPedAlcoholLevelSlient(ped);
+        }
+
+        /// <summary>
+        /// Sets the alcohol level of the specified ped.
+        /// </summary>
+        /// <param name="ped">The ped to set the alcohol level.</param>
+        /// <param name="level">The level to set.</param>
+        /// <exception cref="ArgumentNullException">Thrown if the <paramref name="ped"/> specified was <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentException">Thrown if the <paramref name="ped"/> specified was invalid.</exception>
+        public static void SetPedAlcoholLevel(Ped ped, PedAlcoholLevel level)
+        {
+            if (ped == null) throw new ArgumentNullException(nameof(ped));
+            if (!ped.IsValid()) throw new ArgumentException("The specified ped was invalid!", nameof(ped));
+
+            PedUtil.OverridePedAlcoholLevel(ped, level);
+        }
     }
 }

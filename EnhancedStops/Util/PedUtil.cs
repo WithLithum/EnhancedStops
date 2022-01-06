@@ -50,6 +50,9 @@ namespace EnhancedStops.Util
         /// Three times higher than felony limit.
         /// </summary>
         TripleIndictable,
+        /// <summary>
+        /// The suspect failed to provide a breath sample.
+        /// </summary>
         Failed
     }
 
@@ -58,6 +61,23 @@ namespace EnhancedStops.Util
         private static bool _breathalyzeProgress;
         private static readonly Dictionary<Ped, float> _readings = new Dictionary<Ped, float>();
         private static readonly Dictionary<Ped, PedAlcoholLevel> _levels = new Dictionary<Ped, PedAlcoholLevel>();
+
+        internal static PedAlcoholLevel GetPedAlcoholLevelSlient(Ped ped)
+        {
+            if (!_levels.ContainsKey(ped))
+            {
+                _levels.Add(ped, GetRandomLevel());
+            }
+
+            return _levels[ped];
+        }
+
+        internal static void OverridePedAlcoholLevel(Ped ped, PedAlcoholLevel lvl)
+        {
+            _levels[ped] = lvl;
+
+            _readings[ped] = GetRandomReading(lvl);
+        }
 
         internal static void Breathalyze(Ped ped)
         {
@@ -72,14 +92,11 @@ namespace EnhancedStops.Util
             _breathalyzeProgress = true;
             Game.LocalPlayer.Character.Inventory.GiveNewWeapon("WEAPON_UNARMED", 1, true);
 
-            if (!_levels.ContainsKey(ped))
-            {
-                _levels.Add(ped, GetRandomLevel());
-            }
+            var level = GetPedAlcoholLevelSlient(ped);
 
             if (!_readings.ContainsKey(ped))
             {
-                _readings.Add(ped, GetRandomReading(_levels[ped]));
+                _readings.Add(ped, GetRandomReading(level));
             }
 
             GameFiber.StartNew(() =>

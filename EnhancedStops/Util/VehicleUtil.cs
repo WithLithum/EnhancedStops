@@ -1,9 +1,6 @@
 ﻿using Rage;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EnhancedStops.Util
 {
@@ -17,7 +14,7 @@ namespace EnhancedStops.Util
         }
 
         private static readonly Dictionary<Vehicle, Info> _information = new Dictionary<Vehicle, Info>();
-   
+
         internal static Info QueryInformation(Vehicle veh)
         {
             if (veh == null) throw new ArgumentNullException(nameof(veh));
@@ -41,7 +38,9 @@ namespace EnhancedStops.Util
         }
 
         internal static VehicleStatus GetInvalidStatus() => MathHelper.GetRandomInteger(100) < Config.ExpirationRatio ? VehicleStatus.Expired : VehicleStatus.None;
+
         internal static VehicleStatus GetInvalidStatus(float prect, bool pred) => (!pred && MathHelper.GetRandomInteger(100) < prect) ? GetInvalidStatus() : VehicleStatus.Valid;
+
         internal static Info CreateInfo(Vehicle veh)
         {
             var problematic = MathHelper.GetRandomInteger(100) < Config.VehicleIssueRate;

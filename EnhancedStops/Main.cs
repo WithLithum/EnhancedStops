@@ -6,7 +6,6 @@ using EnhancedStops.Util;
 using LSPD_First_Response.Mod.API;
 using Rage;
 using System.IO;
-using System.Reflection;
 
 [assembly: Rage.Attributes.Plugin("BEPIS", Author = "BEPIS", Description = "You know what I hate? That's BEPIS. The taste, the smell, the texture.")]
 

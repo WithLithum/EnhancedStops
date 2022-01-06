@@ -2,7 +2,6 @@
 // See NOTICE for full notice (including exceptions)
 // See LICENSE for the license.
 
-using Newtonsoft.Json;
 using Rage;
 using System.IO;
 using System.Windows.Forms;

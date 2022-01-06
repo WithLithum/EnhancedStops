@@ -4,16 +4,12 @@
 
 using EnhancedStops.Util;
 using LemonUI;
-using LemonUI.Elements;
 using LemonUI.Menus;
-using LSPD_First_Response.Engine.Scripting.Entities;
 using LSPD_First_Response.Mod.API;
 using Rage;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Runtime.CompilerServices;
-using System.Runtime.Remoting.Messaging;
 
 namespace EnhancedStops
 {
@@ -200,7 +196,7 @@ namespace EnhancedStops
                         continue;
                     }
 
-                    JumpTrafficStop:
+                JumpTrafficStop:
 
                     // Get closet human ped
                     // Not player
@@ -231,7 +227,6 @@ namespace EnhancedStops
                         _arrestMenu.Visible = !_arrestMenu.Visible;
                     }
                 }
-
             }
         }
 

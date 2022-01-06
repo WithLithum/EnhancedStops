@@ -3,7 +3,6 @@
 // See LICENSE for the license.
 
 using LemonUI.Elements;
-using System.Drawing;
 
 namespace EnhancedStops
 {

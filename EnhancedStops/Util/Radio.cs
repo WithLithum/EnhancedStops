@@ -73,10 +73,13 @@ namespace EnhancedStops.Util
             {
                 default:
                     return "~y~NOT FOUND";
+
                 case VehicleStatus.Expired:
                     return "~r~EXPIRED";
+
                 case VehicleStatus.Valid:
                     return "~g~VALID";
+
                 case VehicleStatus.None:
                     return "~r~NONE";
             }
@@ -88,12 +91,16 @@ namespace EnhancedStops.Util
             {
                 default:
                     return "~r~Unknown";
+
                 case ELicenseState.Expired:
                     return "~r~Expired";
+
                 case ELicenseState.Suspended:
                     return "~r~Suspended";
+
                 case ELicenseState.Unlicensed:
                     return "~r~No license";
+
                 case ELicenseState.Valid:
                     return "~g~Valid";
             }

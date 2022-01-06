@@ -6,9 +6,6 @@ using Rage;
 using Rage.Native;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EnhancedStops.Util
 {
@@ -21,35 +18,43 @@ namespace EnhancedStops.Util
         /// Absolutely no alcohol (<c>0mg/100ml</c>).
         /// </summary>
         None,
+
         /// <summary>
         /// Has a little amount of alcohol but not exceeding any limit (greater than zero but lesser than <c>20mg/100ml</c> per Chinese standard).
         /// </summary>
         Normal,
+
         /// <summary>
         /// The alcohol limit exceeds the summary offense limit
         /// (greater than / equals to <c>20mg/100ml</c> but lower than <c>80mg/100ml</c> per Chinese standard)
         /// </summary>
         SummaryOffense,
+
         /// <summary>
         /// Double of <see cref="SummaryOffense"/> (e.g. <c>40mg/100ml</c> per Chinese standard).
         /// </summary>
         DoubleSummaryOffense,
+
         /// <summary>
         /// Over <see cref="DoubleSummaryOffense"/> but lower than felony level (<c>80mg/100ml</c> per Chinese standard).
         /// </summary>
         OverDoubleSummaryOffense,
+
         /// <summary>
         /// Exceeds felony limit (greater than or equals to <c>80mg/100ml</c> per <a href="https://www.spp.gov.cn/flfg/sfjs/201312/t20131227_66040.shtml">Chinese standard</a>).
         /// </summary>
         Indictable,
+
         /// <summary>
         /// Twice times higher than felony limit.
         /// </summary>
         DoubleIndictable,
+
         /// <summary>
         /// Three times higher than felony limit.
         /// </summary>
         TripleIndictable,
+
         /// <summary>
         /// The suspect failed to provide a breath sample.
         /// </summary>
@@ -125,7 +130,6 @@ namespace EnhancedStops.Util
                     ped.Tasks.PlayAnimation("switch@michael@smoking", "michael_smoking_loop", 2f, AnimationFlags.SecondaryTask).WaitForCompletion(8000);
                     Game.LocalPlayer.Character.Tasks.Clear();
                 }
-
 
                 GameFiber.Sleep(3000);
 

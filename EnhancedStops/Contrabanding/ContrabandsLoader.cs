@@ -14,7 +14,7 @@ namespace EnhancedStops.Contrabanding
     internal static class ContrabandsLoader
     {
         private static ContrabandsList list;
-        internal const string DataLocation = "plugins\\LSPDFR\\EnhancedStopss\\Contrabands.json";
+        internal const string DataLocation = "plugins\\LSPDFR\\EnhancedStops\\Contrabands.json";
         internal static void ApplyToPed(Ped ped, ContrabandType type)
         {
             switch (type)

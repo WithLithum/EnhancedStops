@@ -2,6 +2,7 @@
 // See NOTICE for full notice (including exceptions)
 // See LICENSE for the license.
 
+using EnhancedStops.Contrabanding;
 using EnhancedStops.Util;
 using LSPD_First_Response.Mod.API;
 using Rage;
@@ -14,10 +15,16 @@ namespace EnhancedStops
     /// <inheritdoc />
     public class Main : Plugin
     {
+       /// <summary>
+        /// Gets a value indicating whether the plugin is finalizing.
+        /// </summary>
+        public static bool Finalizing { get; private set; }
+
         /// <inheritdoc />
         public override void Finally()
         {
             StopProcess.DisposePeds();
+            Finalizing = true;
         }
 
         /// <inheritdoc />
@@ -40,7 +47,25 @@ namespace EnhancedStops
             }
 
             GameFiber.StartNew(Config.Init, "EH config");
+            ContrabandsLoader.LoadIn();
+            GameFiber.StartNew(ContrabandManager.UpdateFiber, "EH contraband misc");
+
             Functions.OnOnDutyStateChanged += Functions_OnOnDutyStateChanged;
+            Events.OnPedArrested += this.Events_OnPedArrested;
+            Events.OnPedStopped += this.Events_OnPedStopped;
+        }
+
+        private void Events_OnPedArrested(Ped suspect, Ped arrestingOfficer)
+        {
+            Events_OnPedStopped(suspect);
+        }
+
+        private void Events_OnPedStopped(Ped ped)
+        {
+            if (ped)
+            {
+                ContrabandManager.RandomApply(ped);
+            }
         }
 
         private void Functions_OnOnDutyStateChanged(bool onDuty)

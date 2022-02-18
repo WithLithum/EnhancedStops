@@ -1,0 +1,31 @@
+﻿{
+  "Contrabands": [
+    "Wire cutter",
+    "Ammunitions",
+    "Fake Police Badge",
+    "Hollow Point Rounds"
+  ],
+  "Drugs": [
+    "LSD",
+    "Ketamine",
+    "Bag of white powder",
+    "Cocaine"
+  ],
+  "Weapons": [
+    "Pepper Spray",
+    "Nightstick",
+    "Expandable Baton",
+    "Large Flashlight",
+    "Stun Gun",
+    "Automatic Pistol"
+  ],
+  "Items": [
+    "Mobile Phone",
+    "Spray can",
+    "Hammer",
+    "Wrench",
+    "Dollar bill",
+    "Credit card",
+    "Postcard"
+  ]
+}

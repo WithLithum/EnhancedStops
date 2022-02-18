@@ -11,7 +11,6 @@ namespace EnhancedStops.Util
     internal static class Config
     {
         private static readonly InitializationFile iniFile = new InitializationFile(@"plugins\LSPDFR\EnhancedStops.ini");
-
         static Config()
         {
             // Ensure exists

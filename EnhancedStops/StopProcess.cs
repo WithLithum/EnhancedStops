@@ -2,6 +2,7 @@
 // See NOTICE for full notice (including exceptions)
 // See LICENSE for the license.
 
+using EnhancedStops.Contrabanding;
 using EnhancedStops.Util;
 using LemonUI;
 using LemonUI.Menus;
@@ -205,6 +206,8 @@ namespace EnhancedStops
                     // We check if the ped exists & is a ped
                     if (!closePed || !closePed.Model.IsPed) continue;
                     var truePed = (Ped)closePed;
+
+                    ContrabandManager.RandomApply(truePed);
 
                     // Assign currentped so that menus recognize the ped and
                     // performs valid actions

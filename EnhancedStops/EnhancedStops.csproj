@@ -67,6 +67,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\StopFunctions.cs" />
+    <Compile Include="Contrabanding\ContrabandManager.cs" />
+    <Compile Include="Contrabanding\ContrabandsLoader.cs" />
+    <Compile Include="Contrabanding\Entities\ContrabandsList.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -93,6 +96,9 @@
       <Link>.editorconfig</Link>
     </None>
     <None Include="EnhancedStops.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="EnhancedStops\Contrabands.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

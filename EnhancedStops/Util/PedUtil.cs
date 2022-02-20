@@ -71,7 +71,7 @@ namespace EnhancedStops.Util
         {
             if (!_levels.ContainsKey(ped))
             {
-                _levels.Add(ped, GetRandomLevel());
+                _levels.Add(ped, GetRandomLevel(ped));
             }
 
             return _levels[ped];
@@ -201,16 +201,31 @@ namespace EnhancedStops.Util
             }
         }
 
-        internal static PedAlcoholLevel GetRandomLevel()
+        internal static PedAlcoholLevel GetRandomLevel(Ped ped)
         {
             var rnd = new Random();
             var t = rnd.Next(80);
 
             Game.LogTrivial($"ES: Chance by: {t}");
 
+            var detected = false;
+
+            if (ped.Metadata.stpAlcoholDetected is bool stpDetected)
+            {
+                Game.LogTrivial("ES: Overridden by STP api");
+                detected = stpDetected;
+            }
+
             if (t <= 50)
             {
-                return PedAlcoholLevel.None;
+                if (detected)
+                {
+                    t = rnd.Next(52, 80);
+                }
+                else
+                {
+                    return PedAlcoholLevel.None;
+                }
             }
 
             if (t >= 50 && t <= 58)

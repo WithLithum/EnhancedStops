@@ -73,6 +73,18 @@ namespace EnhancedStops
                 "~b~by ~y~WithLithum",
                 "Initialized."
             );
+
+            Events.OnPedFrisked += Events_OnPedFrisked;
+        }
+
+        private static void Events_OnPedFrisked(Ped suspect, Ped friskingOfficer)
+        {
+            if (!suspect || friskingOfficer != Game.LocalPlayer.Character) return;
+
+            if (suspect.Metadata.searchPed == null) return;
+
+            Game.DisplayNotification("~b~EnhancedStops Warning~n~~s~This ped contains ~r~Metadata Search slugs~s~. Nag the author of whatever the callout/event/plugin created this ped, tell them to use LSPDFR API.");
+            Game.DisplayNotification("Items from Metadata: " + suspect.Metadata.searchPed);
         }
 
         internal static void DisposePeds()

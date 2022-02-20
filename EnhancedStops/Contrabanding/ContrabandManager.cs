@@ -31,7 +31,7 @@ namespace EnhancedStops.Contrabanding
                 }
             }
 
-            if (MathHelper.GetRandomInteger(5) == 2)
+            if (MathHelper.GetRandomInteger(5) > 2)
             {
                 var length = MathHelper.GetRandomInteger(2);
                 for (int i = 0; i < length; i++)

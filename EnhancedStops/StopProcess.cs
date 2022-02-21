@@ -24,6 +24,7 @@ namespace EnhancedStops
         private static readonly ObjectPool _pool = new ObjectPool();
         private static readonly NativeMenu _menu = new NativeMenu("", "Interaction Menu");
         private static readonly NativeItem _itemCheckId = new NativeItem("Request status check", "Requests dispatch to check for the ped status.");
+        private static readonly NativeItem _itemCheckGunLicense = new NativeItem("Check gun license", "Checks for gun license.");
         private static readonly NativeItem _itemBreathalyzeFoot = new NativeItem("Breathalyze", "Breathalyzes the suspect.");
 
         private static readonly NativeMenu _arrestMenu = new NativeMenu("", "Arrest Interactions");
@@ -104,6 +105,7 @@ namespace EnhancedStops
 
             // Create menus
             _menu.Add(_itemCheckId);
+            _menu.Add(_itemCheckGunLicense);
             _menu.Add(_itemBreathalyzeFoot);
             _menu.Banner = Globals.BackgroundRect;
 
@@ -127,6 +129,7 @@ namespace EnhancedStops
             // The second is for avoiding the bug
             _itemCheckId.Activated += ItemCheckId_Activated;
             _itemCheckIdArrested.Activated += ItemCheckId_Activated;
+            _itemCheckGunLicense.Activated += _itemCheckGunLicense_Activated;
             _itemGracefulRemoveFromCar.Activated += ItemGracefulRemoveFromCar_Activated;
             _itemCallTransport.Activated += _itemCallTransport_Activated;
             _itemCheckPassengers.Activated += _itemCheckPassengers_Activated;
@@ -241,6 +244,11 @@ namespace EnhancedStops
                     }
                 }
             }
+        }
+
+        private static void _itemCheckGunLicense_Activated(object sender, EventArgs e)
+        {
+            WeaponUtil.DisplayGunPermit(_currentPed);
         }
 
         private static void StandHereActivated(object sender, EventArgs e)
